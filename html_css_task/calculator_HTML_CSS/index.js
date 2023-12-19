@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
 const ansElement = document.getElementById('ans');
 
 
-//click event funtion for recognizing number button
+
 const numberButton = document.querySelectorAll('button');
 console.log(numberButton);
 numberButton.forEach((button) => {
@@ -26,13 +26,13 @@ numberButton.forEach((button) => {
 })
 
 
-//diaplying the expression and result
+
 function Display() {
     ansElement.textContent = currentExp!== '' ? currentExp : currentValue;
 }
 
 
-//setting the expression for evalution
+
 function setExpression(value) {
     if(currentValue === '0'){
         currentValue = value;
