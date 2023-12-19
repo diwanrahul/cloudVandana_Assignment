@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <form id="surveyForm">
+            <table>
+                <tr>
+                    <td>
+                        First Name <br>
+                        <input type="text" name="fname" id="fname" required>
+                    </td>
+                    <td>
+                        Last Name <br>
+                        <input type="text" name="lname" id="lname" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Email <br>
+                        <input type="email" name="email" id="email" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>DOB <br></label>
+                        <input type="date" name="dob" id="dob" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Country <br>
+                        <select id="country" name="country" required>
+                            <option selected value="India">India</option>
+                            <option value="USA">USA</option>
+                            <option value="UAE">UAE</option>
+                            <option value="China">China</option>
+                            <option value="Australia">Australia</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <label id="gender">Gender <br>
+                            <input type="radio" 
+                            id="male"
+                            value="yes" name="gender" required>Male
+                            <input type="radio" value="no" id="female"
+                            name="gender" required>Female
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        Profession <br>
+                        <input type="text" name="profession" id="profession" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        Mobile <br>
+                        <input type="number" name="mobile" id="mobile" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="submit" id="submitBtn">Submit</button>
+                    </td>
+                    <td>
+                        <button type="reset" id="resetBtn">Reset</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <script>
+       document.getElementById('surveyForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            displayValues();
+        });
+
+        document.getElementById('resetBtn').addEventListener('click', function() {
+            document.getElementById('surveyForm').reset();
+        });
+
+        function displayValues() {
+            const form = document.getElementById('surveyForm');
+            const values = {
+                'First Name': form.fname.value,
+                'Last Name': form.lname.value,
+                'Date of Birth': form.dob.value,
+                'Country': form.country.value,
+                'Gender': getGender(),
+                'Profession': form.profession.value,
+                'Email': form.email.value,
+                'Mobile Number': form.mobile.value
+            };
+
+            let popupContent = '<h2>Survey Form Values</h2>';
+            for (const [key, value] of Object.entries(values)) {
+                popupContent += `<p><strong>${key}:</strong> ${value}</p>`;
+            }
+
+            const popup = window.open('', 'Survey Values', 'width=600,height=400');
+            popup.document.body.innerHTML = popupContent;
+
+            
+            popup.onunload = function() {
+                form.reset();
+            };
+        }
+
+        function getGender() {
+            const checkboxes = document.querySelectorAll('input[name="gender"]:checked');
+            let genderValues = [];
+            checkboxes.forEach(checkbox => {
+                genderValues.push(checkbox.value);
+            });
+            return genderValues.join(', ');
+        }
+    </script>
+</body>
+</html>
